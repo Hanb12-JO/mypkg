@@ -4,7 +4,7 @@ from std_msgs.msg import String
 import speedtest
 import math
 
-# バイトからMbpsへの変換関数
+### バイトからMbpsへの変換関数 ###
 def bytes_to_mb(size_bytes):
     i = int(math.floor(math.log(size_bytes, 1024)))  # size_bytesを1024で対数をとる。KB → MB → GB
     power = math.pow(1024, i)  # pow(4,3)で4の3乗
@@ -14,26 +14,19 @@ def bytes_to_mb(size_bytes):
 class WifiSpeedNode(Node):
     def __init__(self):
         super().__init__('wifi_speed_node')
-        
-        # Speedtestインスタンスの作成
         self.wifi = speedtest.Speedtest()
-
-        # トピックのパブリッシュを準備
         self.pub = self.create_publisher(String, 'wifi_speed', 10)
-
-        # 1秒ごとに速度を測定するタイマー
-        self.create_timer(1.0, self.measure_speed)
+        self.create_timer(1.0, self.measure_speed) # タイマー
 
     def measure_speed(self):
         try:
-            # ダウンロードとアップロード速度を測定
             self.get_logger().info("Getting download speed...")
             download_speed = self.wifi.download()
 
             self.get_logger().info("Getting upload speed...")
             upload_speed = self.wifi.upload()
 
-            # 測定結果をMbpsに変換
+            ### Mbpsに変換 ###
             download_speed_mbps = bytes_to_mb(download_speed)
             upload_speed_mbps = bytes_to_mb(upload_speed)
 
@@ -48,10 +41,8 @@ class WifiSpeedNode(Node):
 def main():
     rclpy.init()
 
-    # ノードのインスタンス作成
     node = WifiSpeedNode()
 
-    # ノードをスピンして常に動作させる
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
