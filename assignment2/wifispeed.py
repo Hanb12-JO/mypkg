@@ -40,18 +40,5 @@ class WifiSpeedNode(Node):
 
 def main():
     rclpy.init()
-
     node = WifiSpeedNode()
-
-    try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        # ノードの破棄とROS2の終了処理
-        node.destroy_node()
-        rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
-
+    rclpy.spin(node)
