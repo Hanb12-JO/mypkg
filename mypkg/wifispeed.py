@@ -19,7 +19,6 @@ class WifiSpeedNode(Node):
         self.create_timer(1.0, self.measure_speed) # タイマー
 
     def measure_speed(self):
-        #try:
         self.get_logger().info("Getting download speed...")
         download_speed = self.wifi.download()
 
@@ -35,23 +34,8 @@ class WifiSpeedNode(Node):
         self.pub.publish(String(data=message))
         self.get_logger().info(f"Published: {message}")
 
-        #except Exception as e:
-         #   self.get_logger().error(f"Error measuring wifi speed: {e}")
-
 def main():
     rclpy.init()
-
     node = WifiSpeedNode()
-
-    try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        # ノードの破棄とROS2の終了処理
-        node.destroy_node()
-        rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
+    rclpy.spin(node)
 
