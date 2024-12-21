@@ -19,24 +19,24 @@ class WifiSpeedNode(Node):
         self.create_timer(1.0, self.measure_speed) # タイマー
 
     def measure_speed(self):
-        try:
-            self.get_logger().info("Getting download speed...")
-            download_speed = self.wifi.download()
+        #try:
+        self.get_logger().info("Getting download speed...")
+        download_speed = self.wifi.download()
 
-            self.get_logger().info("Getting upload speed...")
-            upload_speed = self.wifi.upload()
+        self.get_logger().info("Getting upload speed...")
+        upload_speed = self.wifi.upload()
 
             ### Mbpsに変換 ###
-            download_speed_mbps = bytes_to_mb(download_speed)
-            upload_speed_mbps = bytes_to_mb(upload_speed)
+        download_speed_mbps = bytes_to_mb(download_speed)
+        upload_speed_mbps = bytes_to_mb(upload_speed)
 
-            # メッセージを作成してパブリッシュ
-            message = f"Download: {download_speed_mbps}, Upload: {upload_speed_mbps}"
-            self.pub.publish(String(data=message))
-            self.get_logger().info(f"Published: {message}")
+            ### メッセージを作成してパブリッシュ###
+        message = f"Download: {download_speed_mbps}, Upload: {upload_speed_mbps}"
+        self.pub.publish(String(data=message))
+        self.get_logger().info(f"Published: {message}")
 
-        except Exception as e:
-            self.get_logger().error(f"Error measuring wifi speed: {e}")
+        #except Exception as e:
+         #   self.get_logger().error(f"Error measuring wifi speed: {e}")
 
 def main():
     rclpy.init()
