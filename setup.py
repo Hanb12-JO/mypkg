@@ -18,14 +18,16 @@ setup(
     zip_safe=True,
     maintainer='Abdelrahman Alhanbali',
     maintainer_email='abdelrahman.alhanbali@gmail.com',
-    description='TODO: For robot system lecture',
-    license='TODO: BSD-3-Clause',
+    description='For robot system lecture',
+    license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'talker = mypkg.talker:main',
             'listener = mypkg.listener:main',
             'wifispeed = mypkg.wifispeed:main',
+            'wifispeed2 = mypkg.wifispeed2:main',
+            'flightrader24 = mypkg.flightrader24:main',
         ],
     },
 )
